@@ -415,10 +415,12 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 }
 
 -(void)resizeStatusBarBackgroundView {
-    CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
-    CGRect sbBgFrame = _statusBarBackgroundView.frame;
-    sbBgFrame.size = statusBarFrame.size;
-    _statusBarBackgroundView.frame = sbBgFrame;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
+        CGRect sbBgFrame = self->_statusBarBackgroundView.frame;
+        sbBgFrame.size = statusBarFrame.size;
+        self->_statusBarBackgroundView.frame = sbBgFrame;
+    });
 }
 
 -(void)resizeWebView
